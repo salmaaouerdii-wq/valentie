@@ -127,6 +127,24 @@
             100% { transform: scale(2) rotate(360deg); opacity: 0; }
         }
 
+        .no-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            opacity: 0;
+            animation: fadeInOut 2s ease-in-out;
+            z-index: 20;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
         @media (max-width: 768px) {
             .question { font-size: 2rem; }
             .message { font-size: 1.5rem; }
@@ -153,7 +171,7 @@
     </div>
 
     <audio id="bg-music" loop>
-        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav"> <!-- Placeholder; replace with a romantic music URL -->
+        <source src="https://www.freesound.org/data/previews/411/411639_5123451-lq.mp3" type="audio/mpeg"> <!-- Soft romantic piano melody -->
     </audio>
 
     <script>
@@ -209,15 +227,19 @@
         });
 
         noBtn.addEventListener('click', () => {
-            // Move NO button randomly
-            noBtn.style.position = 'absolute';
-            noBtn.style.left = Math.random() * (window.innerWidth - 150) + 'px';
-            noBtn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
-            // Alternatively, shrink and disappear
+            // Show romantic message
+            const noMessage = document.createElement('div');
+            noMessage.className = 'no-message';
+            noMessage.innerHTML = 'Are you sure, my love? My heart beats only for you... Please say YES! 💕';
+            document.body.appendChild(noMessage);
+            setTimeout(() => noMessage.remove(), 2000);
+
+            // Move NO button randomly after a short delay
             setTimeout(() => {
-                noBtn.style.transform = 'scale(0)';
-                noBtn.style.opacity = '0';
-            }, 100);
+                noBtn.style.position = 'absolute';
+                noBtn.style.left = Math.random() * (window.innerWidth - 150) + 'px';
+                noBtn.style.top = Math.random() * (window.innerHeight - 100) + 'px';
+            }, 500);
         });
     </script>
 </body>
